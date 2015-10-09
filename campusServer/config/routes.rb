@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :microposts
+
   resources :users
   root 'users#index'
   get 'users/new'

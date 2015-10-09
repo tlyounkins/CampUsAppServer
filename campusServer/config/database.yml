@@ -9,3 +9,9 @@ development:
   socket: /tmp/mysql.sock
 
 # TODO: configure 'test' database
+test:
+  adapter: mysql2
+  database: test
+  username: root
+  password:
+  encoding: utf8

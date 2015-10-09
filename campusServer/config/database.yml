@@ -7,3 +7,5 @@ development:
   username: root
   password:
   socket: /tmp/mysql.sock
+
+# TODO: configure 'test' database

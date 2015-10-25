@@ -7,20 +7,12 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
-      # Log the user in and redirect to the user's show page.
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      respond_to do |format|
-        format.html {redirect_to user}
-        format.json {render :json => {:success => true,  :id => user.id, :username => user.name}}
-      end
+      redirect_back_or user
     else
-      respond_to do |format|
-        # Create an error message.
-        format.html {flash.now[:danger] = 'Invalid email/password combination'
-                  render 'new'}
-        format.json {render :json => {:success => false}}
-        end
+      flash.now[:danger] = 'Invalid email/password combination'
+      render 'new'
     end
   end
 

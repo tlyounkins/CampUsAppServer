@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token
 
   # GET /users
   # GET /users.json
@@ -11,6 +12,10 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    respond_to do |format|
+      format.html {}
+      format.json {render :json=>{:args => {:email => @user.email, :password => @user.password}}}
+    end
   end
 
   # GET /users/new
@@ -28,11 +33,19 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      @user.errors.full_messages
       log_in @user
       flash[:success] = "Welcome to the CampUs App!"
-      redirect_to @user
+      respond_to do |format|
+        format.html {redirect_to @user}
+        format.json {render :json =>{ :success => true}}
+      end
     else
-      render 'new'
+      @user.errors.full_messages
+      respond_to do |format|
+        format.html {render 'new'}
+        format.json {render :json => {:success =>false}}
+      end
     end
   end
 

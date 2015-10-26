@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -57,10 +57,16 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-        flash[:success] = "Profile updated"
-        redirect_to @user
+        respond_to do |format|
+          format.html {flash[:success] = "Profile updated"
+                      redirect_to @user}
+          format.json {}
+        end
     else
-        render 'edit'
+        respond_to do |format|
+          format.html {render 'edit'}
+          format.json {}
+        end
     end
   end
 
@@ -82,7 +88,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :firstname, :lastname, :bio, :major, :hometown, :gender)
     end
 
     #Before filters

@@ -1,15 +1,14 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  setup do
+  def setup
     @user = users(:tyler)
     @other_user = users(:archer)
   end
 
-  test "should get index" do
+  test "should redirect index when not logged in" do
     get :index
-    assert_response :success
-    assert_not_nil assigns(:users)
+    assert_redirected_to login_url
   end
 
   test "should get new" do
@@ -24,7 +23,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should redirect update when not logged in" do
-    patch :update, id: @user, user: { name: @user.name, email: @user.email }
+    patch :update, id: @user, user: { username: @user.username, email: @user.email }
     assert_not flash.empty?
     assert_redirected_to login_url
   end
@@ -38,14 +37,14 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should redirect update when logged in as wrong user" do
     log_in_as(@other_user)
-    patch :update, id: @user, user: { name: @user.name, email: @user.email }
+    patch :update, id: @user, user: { username: @user.username, email: @user.email }
     assert flash.empty?
     assert_redirected_to root_url
   end
 
   test "should create user" do #TODO: Verify count zero?
     assert_difference('User.count',0) do
-      post :create, user: { email: @user.email, name: @user.name, password: @user.password }
+      post :create, user: { email: @user.email, username: @user.username, password: @user.password }
     end
 
   end
@@ -61,7 +60,7 @@ class UsersControllerTest < ActionController::TestCase
   #end
 
   test "should update user" do
-    patch :update, id: @user, user: { email: @user.email, name: @user.name, password: @user.password }
+    patch :update, id: @user, user: { email: @user.email, username: @user.username, password: @user.password }
   end
 
   test "should destroy user" do

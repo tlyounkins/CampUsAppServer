@@ -9,10 +9,16 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_back_or user
+      respond_to do |format|
+        format.html {redirect_back_or user}
+        format.json {render :json => {:success => true, :id =>user.id, :username => user.username}}
+      end
     else
-      flash.now[:danger] = 'Invalid email/password combination'
-      render 'new'
+      respond_to do |format|
+        format.html {flash.now[:danger] = 'Invalid email/password combination'
+                    render 'new'}
+        format.json {render :json => {:success => false}}
+      end
     end
   end
 

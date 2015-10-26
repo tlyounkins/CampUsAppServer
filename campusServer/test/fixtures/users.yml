@@ -1,11 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 tyler:
-  name: Tyler Example
+  username: TylerY
   email: tyler@example.com
   password_digest: <%= User.digest('password') %>
+  firstname: Tyler
+  lastname: Younkins
+  birthday: 1991-01-10
+  bio: this is my bio
+  major: computer science
+  hometown: Sykesville,MD
+  age: 24
+  gender: male
+  inbox: empty inbox
 
 archer:
-  name: Sterling Archer
+  username: SterlingArcher
   email: duchess@example.gov
   password_digest: <%= User.digest('password') %>
+  firstname: Sterling
+  lastname: Archer
+  birthday: 1948-7-15
+  bio: this is my bio
+  major: spying
+  hometown: BFE,PA
+  age: 76
+  gender: male
+  inbox: empty inbox

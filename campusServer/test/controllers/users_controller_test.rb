@@ -42,25 +42,25 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
-  test "should create user" do #TODO: Verify count zero?
-    assert_difference('User.count',0) do
-      post :create, user: { email: @user.email, username: @user.username, password: @user.password }
+  test "should create user" do
+    assert_difference('User.count') do
+      post :create, user: { username: 'testusername', email: 'testemail@email.com', password: 'testpassword',
+                            firstname: @user.firstname, lastname: @user.lastname, birthday: @user.birthday,
+                            bio: @user.bio, major: @user.major, hometown: @user.hometown, age: @user.age,
+                            gender: @user.gender }
     end
-
   end
 
   test "should show user" do
     get :show, id: @user
     assert_response :success
   end
-  #TODO: do we need this test?
-  #test "should get edit" do
-    #get :edit, id: @user
-   # assert_response :success
-  #end
 
   test "should update user" do
-    patch :update, id: @user, user: { email: @user.email, username: @user.username, password: @user.password }
+    patch :update, id: @user, user: { username: @user.username,email: @user.email, password: @user.password,
+                                      firstname: @user.firstname, lastname: @user.lastname, birthday: @user.birthday,
+                                      bio: @user.bio, major: @user.major, hometown: @user.hometown, age: @user.age,
+                                      gender: @user.gender }
   end
 
   test "should destroy user" do

@@ -15,5 +15,40 @@
   <%= @user.password %>
 </p>
 
+<p>
+  <strong>FirstName:</strong>
+  <%= @user.firstname %>
+</p>
+
+<p>
+  <strong>LastName:</strong>
+  <%= @user.lastname %>
+</p>
+
+<p>
+  <strong>Bio:</strong>
+  <%= @user.bio %>
+</p>
+
+<p>
+  <strong>Major:</strong>
+  <%= @user.major %>
+</p>
+
+<p>
+  <strong>Hometown:</strong>
+  <%= @user.hometown %>
+</p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @user.age %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @user.gender %>
+</p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

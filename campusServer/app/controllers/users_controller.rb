@@ -7,8 +7,11 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
+  # TODO: Previous method of index has @users = User.all
+  # Listing 9.4.2 in the rails tutorial uses paginate
   def index
-    @users = User.all
+    #@users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   # GET /users/1
@@ -17,7 +20,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     respond_to do |format|
       format.html {}
-      format.json {render :json=>{:args => {:email => @user.email, :password => @user.password}}}
+      format.json {render :json=>{:args => {:email => @user.email, :password => @user.password,
+                                            :firstname => @user.firstname, :lastname  => @user.lastname,
+                                            :bio => @user.bio, :major => @user.major, :hometown => @user.hometown,
+                                            :age => @user.age, :gender => @user.gender}}}
     end
   end
 
@@ -37,7 +43,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.errors.full_messages
-      log_in @user
+      log_in @user # delete this line so users do not login upon signup
       flash[:success] = "Welcome to the CampUs App!"
       respond_to do |format|
         format.html {redirect_to @user}
@@ -88,7 +94,8 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :firstname, :lastname, :bio, :major, :hometown, :gender)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :firstname, :lastname,
+                                   :bio, :major, :hometown, :age, :gender)
     end
 
     #Before filters

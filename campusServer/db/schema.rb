@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20151023144503) do
     t.string   "hometown",        limit: 255
     t.integer  "age",             limit: 4
     t.string   "gender",          limit: 255
-    t.string   "inbox",           limit: 255
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.string   "password_digest", limit: 255

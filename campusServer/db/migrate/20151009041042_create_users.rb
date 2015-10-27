@@ -12,7 +12,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :hometown
       t.integer :age
       t.string :gender
-      t.string :inbox
 
 
       t.timestamps null: false

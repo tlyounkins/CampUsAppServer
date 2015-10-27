@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, nil)
   end
 
+  #TODO: delete this class?
   #class << self
     # Returns the hash digest of the given string.
    # def digest(string)

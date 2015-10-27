@@ -16,8 +16,7 @@ User.create!(username:  "Example User",
              major: "computer science",
              hometown: "York,PA",
              age: "65",
-             gender: "male",
-             inbox: "empty inbox")
+             gender: "male")
 
 10.times do |n|
   username  = Faker::Name.name
@@ -31,7 +30,6 @@ User.create!(username:  "Example User",
   hometown = "York,PA"
   age = Faker::Number.digit
   gender = "male"
-  inbox = "empty inbox"
   User.create!(username:  username,
                email: email,
                password:              password,
@@ -43,6 +41,5 @@ User.create!(username:  "Example User",
                major: major,
                hometown: hometown,
                age: age,
-               gender: gender,
-               inbox: inbox)
+               gender: gender)
 end

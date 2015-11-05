@@ -12,6 +12,7 @@ tyler:
   hometown: Sykesville,MD
   age: 24
   gender: male
+  admin: true
 
 archer:
   username: SterlingArcher
@@ -25,6 +26,7 @@ archer:
   hometown: York,PA
   age: 45
   gender: male
+  admin: false
 
 lana:
   username: LanaKane
@@ -38,6 +40,7 @@ lana:
   hometown: York,PA
   age: 45
   gender: female
+  admin: false
 
 mallory:
   username: Mallory Archer
@@ -51,6 +54,7 @@ mallory:
   hometown: York,PA
   age: 65
   gender: female
+  admin: false
 
 <% 30.times do |n| %>
 user_<%= n %>:
@@ -65,4 +69,5 @@ user_<%= n %>:
   hometown: York,PA
   age: 25
   gender: male
+  admin: false
 <% end %>

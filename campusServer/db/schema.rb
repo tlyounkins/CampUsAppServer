@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023144503) do
+ActiveRecord::Schema.define(version: 20151105184346) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "groupname",   limit: 255
@@ -39,10 +39,11 @@ ActiveRecord::Schema.define(version: 20151023144503) do
     t.string   "hometown",        limit: 255
     t.integer  "age",             limit: 4
     t.string   "gender",          limit: 255
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "password_digest", limit: 255
     t.string   "remember_digest", limit: 255
+    t.boolean  "admin",                       default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

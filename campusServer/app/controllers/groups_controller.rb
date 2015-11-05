@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
   # GET /groups/new
   # GET /groups/new.json
   def new
-    @group = Groups.new
+    @group = Group.new(group_params)
   end
 
   # POST /groups
@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
       @group.errors.full_messages
       flash[:success] = "Group Created!"
       respond_to do |format|
-        format.html {redirect_to @user}
+        format.html {redirect_to @group}
         format.json {render :json =>{ :success => true}}
       end
     else

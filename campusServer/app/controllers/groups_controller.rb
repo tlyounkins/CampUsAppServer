@@ -7,14 +7,15 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     respond_to do |format|
       format.html {}
-      format.json {render :json=>{:groupName => @group.groupname, :description => @group.description}}
+      format.json {render :json=>{:groupName => @group.groupname, :description => @group.description, :username =>
+                          @group.user.first.username}}
     end
   end
 
   # GET /groups/new
   # GET /groups/new.json
+  # TODO
   def new
-    @group = Group.new(group_params)
   end
 
   # POST /groups
@@ -44,6 +45,16 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html { }#redirect_to users_url, notice: 'Group was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /groups/1/join.json
+  def join
+    @group = Group.find(params[:id])
+    @user = User.find(params[:user_id])
+    @user.group << @group
+    respond_to do |format|
+      format.json{render :json => {:success => true}}
     end
   end
 

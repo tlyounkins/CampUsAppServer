@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   has_many :microposts
 
+  has_and_belongs_to_many :group
+
   # Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

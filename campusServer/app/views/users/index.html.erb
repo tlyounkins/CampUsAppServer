@@ -34,6 +34,10 @@
         <td><%= user.gender %></td>
         <li>
           <%= link_to user.username, user %>
+          <% if current_user.admin? && !current_user?(user) %>
+              | <%= link_to "delete", user, method: :delete,
+                            data: { confirm: "You sure?" } %>
+          <% end %>
         </li>
 
         <td><%= link_to 'Show', user %></td>

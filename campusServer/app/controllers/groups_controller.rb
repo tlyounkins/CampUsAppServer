@@ -4,10 +4,10 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
-    @group = Groups.find(params[:id])
+    @group = Group.find(params[:id])
     respond_to do |format|
       format.html {}
-      format.json {render :json=>{:args => {:groupname => @group.groupname, :description => @group.description}}}
+      format.json {render :json=>{:groupName => @group.groupname, :description => @group.description}}
     end
   end
 

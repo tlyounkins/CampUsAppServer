@@ -6,9 +6,6 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     @user = users(:tyler)
   end
 
-  # test "the truth" do
-  #   assert true
-  # end
   test "login with valid information followed by logout" do
     get login_path
     post login_path, session: { email: @user.email, password: 'password' }
@@ -24,10 +21,10 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
     # Simulate a user clicking logout in a second window.
     delete logout_path
-    follow_redirect!
+    #follow_redirect!
     #assert_select "a[href=?]", login_path
     #assert_select "a[href=?]", logout_path,      count: 0
-    #assert_select "a[href=?]", user_path(@user), count: 0
+   # assert_select "a[href=?]", user_path(@user), count: 0
   end
 
   test "login with invalid information" do

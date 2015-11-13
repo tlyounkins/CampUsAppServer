@@ -7,3 +7,5 @@
 out/
 gen
 # Created by .ignore support plugin (hsz.mobi)
+# Ignore uploaded test images.
+/public/uploads

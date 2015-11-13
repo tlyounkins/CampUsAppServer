@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
     respond_to do |format|
       format.html {}
       format.json {render :json=>{:username => @user.username, :email => @user.email, :password => @user.password,

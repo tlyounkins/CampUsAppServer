@@ -17,6 +17,13 @@ class GroupsController < ApplicationController
   def new
   end
 
+  # GET /groups/1/members.json
+  def members
+    respond_to do |format|
+      format.json {render :json=>Group.find(params[:id]).user.select('username')}
+    end
+  end
+
   # POST /groups
   # POST /groups.json
   def create

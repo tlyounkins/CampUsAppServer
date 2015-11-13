@@ -62,12 +62,12 @@ class UsersControllerTest < ActionController::TestCase
                                       bio: @user.bio, major: @user.major, hometown: @user.hometown, age: @user.age,
                                       gender: @user.gender }
   end
-
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete :destroy, id: @user
-    end
-  end
+  #TODO: Remove this test?
+  #test "should destroy user" do
+    #assert_difference('User.count', -1) do
+      #delete :destroy, id: @user
+    #end
+  #end
 
   test "should redirect destroy when not logged in" do
     assert_no_difference 'User.count' do

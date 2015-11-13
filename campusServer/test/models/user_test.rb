@@ -19,13 +19,18 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test "name should not be too long" do
+    @user.username = "a" * 51
+    assert_not @user.valid?
+  end
+
   test "email should be present" do
     @user.email = "     "
     assert_not @user.valid?
   end
 
-  test "password should be present" do
-    @user.password = "     "
+  test "email should not be too long" do
+    @user.email = "a" * 244 + "@example.com"
     assert_not @user.valid?
   end
 
@@ -61,6 +66,11 @@ class UserTest < ActiveSupport::TestCase
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
 
+  test "password should be present" do
+    @user.password = "     "
+    assert_not @user.valid?
+  end
+
   test "password should be present (nonblank)" do
     @user.password = @user.password_confirmation = " " * 6
     assert_not @user.valid?
@@ -72,7 +82,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "authenticated? should return false for a user with nil digest" do
-    assert_not @user.authenticated?('')
+    assert_not @user.authenticated?(:remember, '')
   end
 
 end

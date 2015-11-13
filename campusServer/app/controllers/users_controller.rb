@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  #TODO:
+  #TODO: verify before_action and skip_before_filter code
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
@@ -9,10 +9,7 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
-  # TODO: Previous method of index has @users = User.all
-  # Listing 9.4.2 in the rails tutorial uses paginate
   def index
-    #@users = User.all
     @users = User.paginate(page: params[:page])
   end
 
@@ -22,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     respond_to do |format|
       format.html {}
-      format.json {render :json=>{:email => @user.email, :password => @user.password,
+      format.json {render :json=>{:username => @user.username, :email => @user.email, :password => @user.password,
                                             :firstname => @user.firstname, :lastname  => @user.lastname,
                                             :bio => @user.bio, :major => @user.major, :hometown => @user.hometown,
                                             :age => @user.age, :gender => @user.gender}}
@@ -44,15 +41,16 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.errors.full_messages
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      #@user.errors.full_messages
       log_in @user # delete this line so users do not login upon signup
-      flash[:success] = "Welcome to the CampUs App!"
       respond_to do |format|
         format.html {redirect_to @user}
         format.json {render :json =>{ :success => true}}
       end
     else
-      @user.errors.full_messages
+      #@user.errors.full_messages
       respond_to do |format|
         format.html {render 'new'}
         format.json {render :json => {:success =>false}}
@@ -84,14 +82,12 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     unless current_user?(user)
       user.destroy
-      flash[:success] = "User deleted."
     end
-    redirect_to users_url
-    #respond_to do |format|
-      #format.html { flash[:success] = "User deleted"
-                   #redirect_to users_url}
-      #format.json { render :json =>{ :success => true} }
-    #end
+    respond_to do |format|cd
+      format.html { flash[:success] = "User deleted"
+                   redirect_to users_url}
+      format.json { render :json =>{ :success => true} }
+    end
   end
 
   private
@@ -102,8 +98,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :firstname, :lastname,
-                                   :bio, :major, :hometown, :age, :gender)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation)
     end
 
     #Before filters
@@ -126,4 +121,17 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_url) unless current_user.admin?
     end
+
+  private
+
+  # Converts email to all lower-case.
+  def downcase_email
+    User.email = email.downcase
+  end
+
+  # Creates and assigns the activation token and digest.
+  def create_activation_digest
+    User.activation_token  = User.new_token
+    User.activation_digest = User.digest(activation_token)
+  end
 end

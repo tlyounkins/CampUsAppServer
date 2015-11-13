@@ -17,7 +17,9 @@ User.create!(username:  "Example User",
              hometown: "York,PA",
              age: "65",
              gender: "male",
-             admin: true)
+             admin: true,
+             activated: true,
+             activated_at: Time.zone.now)
 
 10.times do |n|
   username  = Faker::Name.name
@@ -44,5 +46,7 @@ User.create!(username:  "Example User",
                hometown: hometown,
                age: age,
                gender: gender,
-               admin: admin)
+               admin: admin,
+               activated: true,
+               activated_at: Time.zone.now)
 end

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   get 'groups/new'
 
   root                'static_pages#home'
@@ -12,6 +16,7 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   resources :users
+  resources :account_activations, only: [:edit]
   resources :microposts
   resources :groups
 

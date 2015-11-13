@@ -7,8 +7,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     respond_to do |format|
       format.html {}
-      format.json {render :json=>{:groupName => @group.groupname, :description => @group.description, :username =>
-                          @group.user.first.username}}
+      format.json {render :json=>{:groupName => @group.groupname, :description => @group.description}}
     end
   end
 

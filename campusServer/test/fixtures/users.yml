@@ -13,6 +13,8 @@ tyler:
   age: 24
   gender: male
   admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 archer:
   username: SterlingArcher
@@ -26,6 +28,8 @@ archer:
   hometown: York,PA
   age: 45
   gender: male
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 lana:
   username: LanaKane
@@ -39,6 +43,8 @@ lana:
   hometown: York,PA
   age: 45
   gender: female
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 mallory:
   username: Mallory Archer
@@ -52,6 +58,8 @@ mallory:
   hometown: York,PA
   age: 65
   gender: female
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 <% 30.times do |n| %>
 user_<%= n %>:
@@ -66,4 +74,6 @@ user_<%= n %>:
   hometown: York,PA
   age: 25
   gender: male
+  activated: true
+  activated_at: <%= Time.zone.now %>
 <% end %>

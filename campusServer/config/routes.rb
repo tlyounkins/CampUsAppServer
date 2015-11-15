@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   get    'groups/:id/join/:user_id' => 'groups#join'
   get    'groups/:id/members' => 'groups#members'
+  get    'users/:username/findId' => 'users#findId'
   post   'users/new' => 'users#create'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'

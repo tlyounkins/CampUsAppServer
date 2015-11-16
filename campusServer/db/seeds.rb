@@ -16,7 +16,7 @@ User.create!(username:  "Example User",
              gender: "male",
              admin: true,
              activated: true,
-             activated_at: Time.zone.now)
+             activated_at: Time.zone.now.to_datetime)
 
 10.times do |n|
   username  = Faker::Name.name
@@ -45,7 +45,7 @@ User.create!(username:  "Example User",
                gender: gender,
                admin: admin,
                activated: true,
-               activated_at: Time.zone.now)
+               activated_at: Time.zone.now.to_datetime)
 end
 
 # Microposts

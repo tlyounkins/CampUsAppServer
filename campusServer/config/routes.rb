@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   get    'groups/:id/join/:user_id' => 'groups#join'
   get    'groups/:id/members' => 'groups#members'
   get    'users/:username/findId' => 'users#findId'
+  get    'microposts/:id/posts' => 'microposts#posts'
   post   'users/new' => 'users#create'
   post   'login'   => 'sessions#create'
+  post   'microposts/:id' => 'microposts#create'
   delete 'logout'  => 'sessions#destroy'
   resources :users do
     member do
@@ -25,7 +27,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :microposts,          only: [:create, :destroy]
+  resources :microposts
   resources :relationships,       only: [:create, :destroy]
 
 end

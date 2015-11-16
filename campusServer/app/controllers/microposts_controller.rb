@@ -1,7 +1,8 @@
 class MicropostsController < ApplicationController
   #before_action :set_micropost, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, only: [:create, :destroy]
+  #before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
+  skip_before_filter :verify_authenticity_token
 
   # GET /microposts
   # GET /microposts.json
@@ -12,6 +13,9 @@ class MicropostsController < ApplicationController
   # GET /microposts/1
   # GET /microposts/1.json
   def show
+    respond_to do |format|
+      format.json{render :json=> {:content => User.find(params[:id]).microposts.last.content}}
+    end
   end
 
   # GET /microposts/new
@@ -23,22 +27,33 @@ class MicropostsController < ApplicationController
   def edit
   end
 
+  # GET /microposts/1/posts
+  def posts
+    respond_to do |format|
+      format.json{render :json=>User.find(params[:id]).microposts.select('content')}
+    end
+  end
+
   # POST /microposts
-  # POST /microposts.json
+  # POST /microposts/1.json
   def create
-    @micropost = current_user.microposts.build(micropost_params)
+    @micropost = User.find(params[:id]).microposts.build(micropost_params)
 
     #respond_to do |format|
       if @micropost.save
         flash[:success] = "Micropost created!"
-        redirect_to root_url
-        #format.html { redirect_to @micropost, notice: 'Micropost was successfully created.' }
-        #format.json { render :show, status: :created, location: @micropost }
+        #redirect_to root_url
+        respond_to do |format|
+          format.html { redirect_to @micropost, notice: 'Micropost was successfully created.' }
+          format.json { render :json=>{:success => true}}
+        end
       else
         @feed_items = []
-        render 'static_pages/home'
-        #format.html { render :new }
-        #format.json { render json: @micropost.errors, status: :unprocessable_entity }
+        #render 'static_pages/home'
+        respond_to do |format|
+          format.html { render :new }
+          format.json { render :json=>{:success => false}}
+        end
       #end
     end
   end

@@ -14,7 +14,7 @@ tyler:
   gender: male
   admin: true
   activated: true
-  activated_at: <%= Time.zone.now %>
+  activated_at: <%= Time.zone.now.to_datetime %>
 
 archer:
   username: SterlingArcher
@@ -29,7 +29,7 @@ archer:
   age: 45
   gender: male
   activated: true
-  activated_at: <%= Time.zone.now %>
+  activated_at: <%= Time.zone.now.to_datetime %>
 
 lana:
   username: LanaKane
@@ -44,7 +44,7 @@ lana:
   age: 45
   gender: female
   activated: true
-  activated_at: <%= Time.zone.now %>
+  activated_at: <%= Time.zone.now.to_datetime %>
 
 mallory:
   username: Mallory Archer
@@ -59,7 +59,7 @@ mallory:
   age: 65
   gender: female
   activated: true
-  activated_at: <%= Time.zone.now %>
+  activated_at: <%= Time.zone.now.to_datetime %>
 
 <% 30.times do |n| %>
 user_<%= n %>:
@@ -75,5 +75,5 @@ user_<%= n %>:
   age: 25
   gender: male
   activated: true
-  activated_at: <%= Time.zone.now %>
+  activated_at: <%= Time.zone.now.to_datetime %>
 <% end %>

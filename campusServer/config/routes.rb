@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get    'groups/:id/members' => 'groups#members'
   get    'users/:username/findId' => 'users#findId'
   get    'microposts/:id/posts' => 'microposts#posts'
+  get    'groups/getAll' => 'groups#getAll'
   post   'users/new' => 'users#create'
   post   'login'   => 'sessions#create'
   post   'microposts/:id' => 'microposts#create'

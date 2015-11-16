@@ -17,6 +17,13 @@ class GroupsController < ApplicationController
   def new
   end
 
+  # GET /groups/getAll.json
+  def getAll
+    respond_to do |format|
+      format.json {render :json=>Group.all}
+    end
+  end
+
   # GET /groups/1/members.json
   def members
     respond_to do |format|

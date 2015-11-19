@@ -1,11 +1,27 @@
-### Example user template template
-### Example user template
 
 # IntelliJ project files
 .idea/
 *.iml
 out/
 gen
-# Created by .ignore support plugin (hsz.mobi)
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*
+!/log/.keep
+/tmp
+
+# Ignore Spring files.
+/spring/*.pid
+
 # Ignore uploaded test images.
 /public/uploads
+
+#Ignore Secrets file
+/config/secrets.yml

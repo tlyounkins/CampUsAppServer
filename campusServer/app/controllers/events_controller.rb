@@ -7,9 +7,9 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     respond_to do |format|
       format.html {}
-      format.json {render :json=>{:eventName => @event.eventname, :StartDate => @event.startdate,
+      format.json {render :json=>{ :eventName => @event.eventname, :StartDate => @event.startdate,
                                   :eventEndDate => @event.enddate, :location => @event.location,
-                                  :description => @event.description}}
+                                  :description => @event.description }}
     end
   end
 

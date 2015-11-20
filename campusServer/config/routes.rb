@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'password_resets/edit'
 
   get 'groups/new'
+  get 'events/new'
 
   root                'static_pages#home'
   get    'help'    => 'static_pages#help'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   get    'users/:username/findId' => 'users#findId'
   get    'microposts/:id/posts' => 'microposts#posts'
   get    'groups/getAll' => 'groups#getAll'
+  get    'events/getAll' => 'events#getAll'
   post   'users/new' => 'users#create'
   post   'login'   => 'sessions#create'
   post   'microposts/:id' => 'microposts#create'
@@ -26,6 +28,7 @@ Rails.application.routes.draw do
     end
   end
   resources :groups
+  resources :events
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts

@@ -16,11 +16,14 @@ Rails.application.routes.draw do
   get    'groups/:id/members' => 'groups#members'
   get    'users/:username/findId' => 'users#findId'
   get    'microposts/:id/posts' => 'microposts#posts'
+  get    'group_microposts/:id/posts' => 'group_microposts#posts'
   get    'groups/getAll' => 'groups#getAll'
+  get    'users/getAll' => 'users#getAll'
   get    'events/getAll' => 'events#getAll'
   post   'users/new' => 'users#create'
   post   'login'   => 'sessions#create'
   post   'microposts/:id' => 'microposts#create'
+  post   'group_microposts/:id' => 'group_microposts#create'
   delete 'logout'  => 'sessions#destroy'
   resources :users do
     member do

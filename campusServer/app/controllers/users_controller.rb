@@ -33,6 +33,13 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  # GET /users/getAll
+  def getAll
+    respond_to do |format|
+      format.json {render :json=>User.all}
+    end
+  end
+
   # GET /users/:username.json
   def findId
     @user = User.where(params[:username])

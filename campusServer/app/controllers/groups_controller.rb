@@ -46,7 +46,7 @@ class GroupsController < ApplicationController
       @group.errors.full_messages
       respond_to do |format|
         format.html {render 'new'}
-        format.json {render :json => {:success =>false}}
+        format.json {render :json => {:success => false}}
       end
     end
   end
@@ -61,7 +61,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  # GET /groups/1/join.json
+  # GET /groups/1/join/13.json
   def join
     @group = Group.find(params[:id])
     @user = User.find(params[:user_id])

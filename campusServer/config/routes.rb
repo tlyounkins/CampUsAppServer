@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get    'groups/getAll' => 'groups#getAll'
   get    'users/getAll' => 'users#getAll'
   get    'events/getAll' => 'events#getAll'
+  get    'users/:username' => 'users#findId'
+  get    'group_event/getGroup/:group_id' => 'group_events#getGroup'
+  post   'group_event/:group_id' => 'group_events#create'
   post   'users/new' => 'users#create'
   post   'login'   => 'sessions#create'
   post   'microposts/:id' => 'microposts#create'
@@ -32,6 +35,7 @@ Rails.application.routes.draw do
   end
   resources :groups
   resources :events
+  resources :group_events
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts

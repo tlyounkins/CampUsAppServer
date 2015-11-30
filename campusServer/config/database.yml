@@ -5,7 +5,7 @@ development:
   database: campusApp_development
   pool: 5
   username: root
-  password: campusu
+  password:
   socket: /tmp/mysql.sock
 
 # Test

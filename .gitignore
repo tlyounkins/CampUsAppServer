@@ -25,3 +25,6 @@ gen
 
 #Ignore Secrets file
 /config/secrets.yml
+
+#Ignore database file
+/config/database.yml

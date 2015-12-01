@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get    'groups/getAll' => 'groups#getAll'
   get    'users/getAll' => 'users#getAll'
   get    'events/getAll' => 'events#getAll'
-  get    'users/:username' => 'users#findId'
+  get    'users/findId/:username' => 'users#findId'
   get    'group_event/getGroup/:group_id' => 'group_events#getGroup'
   post   'group_event/:group_id' => 'group_events#create'
   post   'users/new' => 'users#create'

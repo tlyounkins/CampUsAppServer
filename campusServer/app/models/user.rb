@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :group
   has_many :events
+  has_many :private_messages
 
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email

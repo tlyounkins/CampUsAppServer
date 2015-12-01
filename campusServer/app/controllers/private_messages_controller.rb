@@ -47,7 +47,7 @@ class PrivateMessagesController < ApplicationController
   # DELETE /private_messages/1.json
   def destroy
     @private_message.destroy
-    flash[:success] = "Private Messages deleted"
+    #flash[:success] = "Private Messages deleted"
     redirect_to request.referrer || root_url
     #respond_to do |format|
     #format.html { redirect_to microposts_url, notice: 'Private Messages were successfully destroyed.' }

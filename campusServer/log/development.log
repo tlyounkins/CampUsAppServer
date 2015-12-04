@@ -1,0 +1,1847 @@
+  [1m[36m (154.3ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (244.6ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (29.8ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateUsers (20151009041042)
+  [1m[35m (210.3ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `username` varchar(255), `email` varchar(255), `password` varchar(255), `firstname` varchar(255), `lastname` varchar(255), `birthday` date, `bio` varchar(255), `major` varchar(255), `hometown` varchar(255), `age` int(11), `gender` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (20.8ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (20.1ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151009041042')
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+Migrating to CreateMicroposts (20151009044808)
+  [1m[35m (153.0ms)[0m  CREATE TABLE `microposts` (`id` int(11) auto_increment PRIMARY KEY, `content` text, `user_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (110.7ms)[0m  [1mCREATE  INDEX `index_microposts_on_user_id_and_created_at`  ON `microposts` (`user_id`, `created_at`) [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (23.6ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151009044808')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddPasswordDigestToUsers (20151009053126)
+  [1m[36m (110.6ms)[0m  [1mALTER TABLE `users` ADD `password_digest` varchar(255)[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151009053126')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddRememberDigestToUsers (20151009161727)
+  [1m[36m (185.8ms)[0m  [1mALTER TABLE `users` ADD `remember_digest` varchar(255)[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151009161727')[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+Migrating to AddIndexToUsersEmail (20151022164258)
+  [1m[36m (147.1ms)[0m  [1mCREATE UNIQUE INDEX `index_users_on_email`  ON `users` (`email`) [0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151022164258')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreateGroups (20151023144503)
+  [1m[36m (154.8ms)[0m  [1mCREATE TABLE `groups` (`id` int(11) auto_increment PRIMARY KEY, `groupname` varchar(255), `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151023144503')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to AddAdminToUsers (20151105184346)
+  [1m[36m (162.8ms)[0m  [1mALTER TABLE `users` ADD `admin` tinyint(1) DEFAULT 0[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151105184346')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to GroupsUsers (20151105191830)
+  [1m[36m (181.0ms)[0m  [1mCREATE TABLE `groups_users` (`group_id` int(11), `user_id` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151105191830')[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+Migrating to AddActivationToUser (20151112184810)
+  [1m[36m (146.6ms)[0m  [1mALTER TABLE `users` ADD `activation_digest` varchar(255)[0m
+  [1m[35m (359.6ms)[0m  ALTER TABLE `users` ADD `activated` tinyint(1) DEFAULT 0
+  [1m[36m (204.4ms)[0m  [1mALTER TABLE `users` ADD `activated_at` datetime[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151112184810')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to AddResetToUsers (20151113044714)
+  [1m[36m (163.4ms)[0m  [1mALTER TABLE `users` ADD `reset_digest` varchar(255)[0m
+  [1m[35m (154.6ms)[0m  ALTER TABLE `users` ADD `reset_sent_at` datetime
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151113044714')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to AddPictureToMicroposts (20151113211208)
+  [1m[35m (214.2ms)[0m  ALTER TABLE `microposts` ADD `picture` varchar(255)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151113211208')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateRelationships (20151113234744)
+  [1m[35m (127.3ms)[0m  CREATE TABLE `relationships` (`id` int(11) auto_increment PRIMARY KEY, `follower_id` int(11), `followed_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (138.5ms)[0m  [1mCREATE  INDEX `index_relationships_on_follower_id`  ON `relationships` (`follower_id`) [0m
+  [1m[35m (134.3ms)[0m  CREATE  INDEX `index_relationships_on_followed_id`  ON `relationships` (`followed_id`) 
+  [1m[36m (168.4ms)[0m  [1mCREATE UNIQUE INDEX `index_relationships_on_follower_id_and_followed_id`  ON `relationships` (`follower_id`, `followed_id`) [0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151113234744')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (28.8ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+
+  [1m[36m (0.3ms)[0m  [1mSHOW CREATE TABLE `groups`[0m
+  [1m[35m (0.6ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `groups_users`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `microposts`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `relationships`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `users`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups_users`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `microposts`
+  [1m[36m (0.4ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `relationships`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'example@railstutorial.org' LIMIT 1[0m
+  [1m[35mSQL (28.3ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `admin`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Example User', 'example@railstutorial.org', '$2a$10$aIeUD.FOxnAnpmOl6wmu3OzKgVtyQyxycOg0Q4Ki31TIBkY2il7T.', 'examplefirstname', 'examplelastname', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 65, 'male', 1, 1, '2015-11-19 19:29:50', '2015-11-19 19:29:51', '2015-11-19 19:29:51', '$2a$10$eYV.cUbk8d/d1qX0WneQLuG0iozciLYR2tQvXdft9GZCSfernVXhy')
+  [1m[36m (7.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'astrid@collierreichert.org' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Danny Witting', 'astrid@collierreichert.org', '$2a$10$XFACLwwx.3OT/VFR0BFXKeiqee1uBZuSKJPUxCVAL8c9f466enDC6', 'Bertram', 'West', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 9, 'male', 1, '2015-11-19 19:29:51', '2015-11-19 19:29:51', '2015-11-19 19:29:51', '$2a$10$11WmJ6W/QPxnMlGm8ubKreWWpF1bwHewoNL4fl3HZx9f7zvEbDGv6')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'abdiel.steuber@douglas.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Karli Beahan', 'abdiel.steuber@douglas.biz', '$2a$10$gLcL6pJDqBVYEq6T4diAQ.MBkkqtWl.xx1qejZdl7jSEd6x4kn.0K', 'Rachael', 'Hettinger', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 1, 'male', 1, '2015-11-19 19:29:52', '2015-11-19 19:29:52', '2015-11-19 19:29:52', '$2a$10$pm11z19Zy2Qgt4OCXlVQz.H6iwLuFLgqM.YmltFGMuyT2ktWEU.1K')
+  [1m[36m (23.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'walton@gaylord.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Isabell Doyle', 'walton@gaylord.net', '$2a$10$pBhvgL8Ow3NPuw142ioqv.q9qj0NAm6xTxChUyQOE13zL836A.Jry', 'Elmo', 'Gerlach', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 1, 'male', 1, '2015-11-19 19:29:52', '2015-11-19 19:29:52', '2015-11-19 19:29:52', '$2a$10$my037YfYezsv.VjDcAXJAeUfD9sLPikHj2QmGWY2g.qmZf4R9dQcq')
+  [1m[36m (27.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'titus_purdy@prohaska.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Fern Kohler DVM', 'titus_purdy@prohaska.biz', '$2a$10$YQcyUl2Q.SCnTtGVHtIrhuQ4AVHLLMro2CWG/ApHkxPepRWj0vTi.', 'Elsie', 'Bergstrom', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 8, 'male', 1, '2015-11-19 19:29:52', '2015-11-19 19:29:52', '2015-11-19 19:29:52', '$2a$10$c5WIrmJvKHW/6DdIoTvWu.yvEFYfc1.UevNmYlHDzDBlrvE2sKs.C')
+  [1m[36m (15.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'julie_west@hane.org' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Rosendo Tremblay', 'julie_west@hane.org', '$2a$10$ZTxgNpCa6vsyY/LqRE4E4.SnIofswGrc/R1jz/EOUUtX0EKviXkpa', 'Mireille', 'Balistreri', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 4, 'male', 1, '2015-11-19 19:29:52', '2015-11-19 19:29:52', '2015-11-19 19:29:52', '$2a$10$p2lnB3hgEtvEfdjgsDif4eoBUD1bIczzxG//V3JvHv/BBFnwG4196')
+  [1m[36m (11.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'aisha_marquardt@wintheiser.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Tad Quitzon Jr.', 'aisha_marquardt@wintheiser.biz', '$2a$10$pkpZa8clNXc/9aUvmVd8n.iZlsm.8SvnHenoIfoO.M3qHOamvCEKa', 'Charlotte', 'Schneider', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 5, 'male', 1, '2015-11-19 19:29:53', '2015-11-19 19:29:53', '2015-11-19 19:29:53', '$2a$10$nmhEJlELXT9s1431zSL69OFvuQz4ve9QwA6XhRfEEyaf0bsMeWgGO')
+  [1m[36m (71.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'alize.kuvalis@pfeffer.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Ralph Runolfsdottir', 'alize.kuvalis@pfeffer.info', '$2a$10$B7zhyRBgSgggu3XT072itu.RtoZ48AqgpPjTMbWYgs8OIFSBIvjDi', 'Grant', 'Bartoletti', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 2, 'male', 1, '2015-11-19 19:29:53', '2015-11-19 19:29:53', '2015-11-19 19:29:53', '$2a$10$c9mKWNrlo5jbwJVTJdH0nO2yNRL/Mp.Zshq.IhnB5nQKjXxAoIxSa')
+  [1m[36m (23.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'maverick_koelpin@thiel.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Carlos Davis', 'maverick_koelpin@thiel.biz', '$2a$10$olIV//UUJxg7lR6g27xWGOcEqz6SBOyNkbiSpUGUmoTt67WdnVI6.', 'Arlo', 'Mohr', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 2, 'male', 1, '2015-11-19 19:29:53', '2015-11-19 19:29:53', '2015-11-19 19:29:53', '$2a$10$4BGcLlq0Gv4sTM3QfxuPnOIsRQnjlMwYQTIPlZgBkFKT6zBY3Wlsu')
+  [1m[36m (22.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'freda@wilderman.info' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Gonzalo Koss', 'freda@wilderman.info', '$2a$10$67JgWBBBCeH6FVlTVnFGROWMgTexPRsdYyvUIu39pbooNW6JNkGwu', 'Ayana', 'Rau', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 8, 'male', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54', '2015-11-19 19:29:54', '$2a$10$UpPW6KMZOXcy5BcMhc.Gk.absfMvSPDp/exE7pJTRJXPdrQxnf.oe')
+  [1m[36m (11.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = 'minerva@schulist.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`username`, `email`, `password_digest`, `firstname`, `lastname`, `birthday`, `bio`, `major`, `hometown`, `age`, `gender`, `activated`, `activated_at`, `created_at`, `updated_at`, `activation_digest`) VALUES ('Ms. Alfonso Gorczany', 'minerva@schulist.name', '$2a$10$h5QqeTS.P5ViWdMlMZEvm.5X4u.5pZ9DeItrAUQTcgnr0KkmoAXI2', 'Jerrell', 'O\'Reilly', '1950-01-01', 'this is my bio', 'computer science', 'York,PA', 8, 'male', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54', '2015-11-19 19:29:54', '$2a$10$TfLr/M65XQIn7YomSSDwpeVFRztvq5f/v9qlzNNsL.T2YIYyDgmzm')
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (40.7ms)[0m  SELECT  `users`.* FROM `users`  ORDER BY `users`.`created_at` ASC LIMIT 6
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Cumque et voluptatem soluta quasi velit tempore.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Cumque et voluptatem soluta quasi velit tempore.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Cumque et voluptatem soluta quasi velit tempore.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (17.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Cumque et voluptatem soluta quasi velit tempore.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Cumque et voluptatem soluta quasi velit tempore.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Cumque et voluptatem soluta quasi velit tempore.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum sapiente incidunt qui a repellendus.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum sapiente incidunt qui a repellendus.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum sapiente incidunt qui a repellendus.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum sapiente incidunt qui a repellendus.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum sapiente incidunt qui a repellendus.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum sapiente incidunt qui a repellendus.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Qui unde consequatur ducimus corporis sequi vero modi tempora eos.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Qui unde consequatur ducimus corporis sequi vero modi tempora eos.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Qui unde consequatur ducimus corporis sequi vero modi tempora eos.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Qui unde consequatur ducimus corporis sequi vero modi tempora eos.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Qui unde consequatur ducimus corporis sequi vero modi tempora eos.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Qui unde consequatur ducimus corporis sequi vero modi tempora eos.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Libero eum non iste distinctio aut vel quod asperiores ad.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Libero eum non iste distinctio aut vel quod asperiores ad.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Libero eum non iste distinctio aut vel quod asperiores ad.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Libero eum non iste distinctio aut vel quod asperiores ad.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Libero eum non iste distinctio aut vel quod asperiores ad.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Libero eum non iste distinctio aut vel quod asperiores ad.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Atque temporibus consequatur provident vel et et sunt.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Atque temporibus consequatur provident vel et et sunt.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Atque temporibus consequatur provident vel et et sunt.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Atque temporibus consequatur provident vel et et sunt.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Atque temporibus consequatur provident vel et et sunt.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Atque temporibus consequatur provident vel et et sunt.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem omnis et ea repellat rerum sapiente qui est autem.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem omnis et ea repellat rerum sapiente qui est autem.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem omnis et ea repellat rerum sapiente qui est autem.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem omnis et ea repellat rerum sapiente qui est autem.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem omnis et ea repellat rerum sapiente qui est autem.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem omnis et ea repellat rerum sapiente qui est autem.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum eos omnis vitae sunt ipsa eveniet.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum eos omnis vitae sunt ipsa eveniet.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum eos omnis vitae sunt ipsa eveniet.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum eos omnis vitae sunt ipsa eveniet.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum eos omnis vitae sunt ipsa eveniet.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Illum eos omnis vitae sunt ipsa eveniet.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Animi dicta voluptatum quia reprehenderit vitae rerum.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Animi dicta voluptatum quia reprehenderit vitae rerum.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Animi dicta voluptatum quia reprehenderit vitae rerum.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Animi dicta voluptatum quia reprehenderit vitae rerum.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Animi dicta voluptatum quia reprehenderit vitae rerum.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Animi dicta voluptatum quia reprehenderit vitae rerum.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Necessitatibus est voluptatibus eius perspiciatis facere.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Necessitatibus est voluptatibus eius perspiciatis facere.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Necessitatibus est voluptatibus eius perspiciatis facere.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Necessitatibus est voluptatibus eius perspiciatis facere.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Necessitatibus est voluptatibus eius perspiciatis facere.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Necessitatibus est voluptatibus eius perspiciatis facere.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Et in quas iste ut est suscipit autem rem fugit.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Et in quas iste ut est suscipit autem rem fugit.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Et in quas iste ut est suscipit autem rem fugit.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Et in quas iste ut est suscipit autem rem fugit.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Et in quas iste ut est suscipit autem rem fugit.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Et in quas iste ut est suscipit autem rem fugit.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Veniam sapiente adipisci sed explicabo.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Veniam sapiente adipisci sed explicabo.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Veniam sapiente adipisci sed explicabo.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Veniam sapiente adipisci sed explicabo.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Veniam sapiente adipisci sed explicabo.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Veniam sapiente adipisci sed explicabo.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Alias deleniti voluptatem vel culpa corporis praesentium.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Alias deleniti voluptatem vel culpa corporis praesentium.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Alias deleniti voluptatem vel culpa corporis praesentium.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Alias deleniti voluptatem vel culpa corporis praesentium.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Alias deleniti voluptatem vel culpa corporis praesentium.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Alias deleniti voluptatem vel culpa corporis praesentium.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consequatur natus culpa beatae voluptatem ab qui.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consequatur natus culpa beatae voluptatem ab qui.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consequatur natus culpa beatae voluptatem ab qui.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consequatur natus culpa beatae voluptatem ab qui.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consequatur natus culpa beatae voluptatem ab qui.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consequatur natus culpa beatae voluptatem ab qui.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident veritatis laudantium ut rem inventore eos.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident veritatis laudantium ut rem inventore eos.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident veritatis laudantium ut rem inventore eos.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident veritatis laudantium ut rem inventore eos.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident veritatis laudantium ut rem inventore eos.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident veritatis laudantium ut rem inventore eos.', 6, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (12.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quibusdam optio qui vel voluptate aut.', 1, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quibusdam optio qui vel voluptate aut.', 2, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quibusdam optio qui vel voluptate aut.', 3, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quibusdam optio qui vel voluptate aut.', 4, '2015-11-19 19:29:54', '2015-11-19 19:29:54')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quibusdam optio qui vel voluptate aut.', 5, '2015-11-19 19:29:54', '2015-11-19 19:29:54')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quibusdam optio qui vel voluptate aut.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Sed natus voluptatem dolorem autem nam voluptate veniam ut.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Sed natus voluptatem dolorem autem nam voluptate veniam ut.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Sed natus voluptatem dolorem autem nam voluptate veniam ut.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Sed natus voluptatem dolorem autem nam voluptate veniam ut.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Sed natus voluptatem dolorem autem nam voluptate veniam ut.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Sed natus voluptatem dolorem autem nam voluptate veniam ut.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam incidunt odio voluptatem recusandae.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam incidunt odio voluptatem recusandae.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam incidunt odio voluptatem recusandae.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam incidunt odio voluptatem recusandae.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam incidunt odio voluptatem recusandae.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam incidunt odio voluptatem recusandae.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aut est numquam odit suscipit esse.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aut est numquam odit suscipit esse.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aut est numquam odit suscipit esse.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aut est numquam odit suscipit esse.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aut est numquam odit suscipit esse.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aut est numquam odit suscipit esse.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Iure ut qui nesciunt debitis suscipit saepe dolores.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Iure ut qui nesciunt debitis suscipit saepe dolores.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Iure ut qui nesciunt debitis suscipit saepe dolores.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Iure ut qui nesciunt debitis suscipit saepe dolores.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Iure ut qui nesciunt debitis suscipit saepe dolores.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Iure ut qui nesciunt debitis suscipit saepe dolores.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Eos ut odio consequatur sed labore quo voluptatem.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Eos ut odio consequatur sed labore quo voluptatem.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Eos ut odio consequatur sed labore quo voluptatem.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Eos ut odio consequatur sed labore quo voluptatem.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Eos ut odio consequatur sed labore quo voluptatem.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Eos ut odio consequatur sed labore quo voluptatem.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident fugiat qui aliquam distinctio nobis dolorem.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident fugiat qui aliquam distinctio nobis dolorem.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident fugiat qui aliquam distinctio nobis dolorem.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident fugiat qui aliquam distinctio nobis dolorem.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident fugiat qui aliquam distinctio nobis dolorem.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Provident fugiat qui aliquam distinctio nobis dolorem.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Facere numquam illo eligendi nulla.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Facere numquam illo eligendi nulla.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Facere numquam illo eligendi nulla.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Facere numquam illo eligendi nulla.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Facere numquam illo eligendi nulla.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Facere numquam illo eligendi nulla.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Ratione modi a non quis commodi rerum.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Ratione modi a non quis commodi rerum.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Ratione modi a non quis commodi rerum.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Ratione modi a non quis commodi rerum.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (31.7ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Ratione modi a non quis commodi rerum.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Ratione modi a non quis commodi rerum.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Occaecati dolorem dicta voluptatibus enim.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Occaecati dolorem dicta voluptatibus enim.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Occaecati dolorem dicta voluptatibus enim.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Occaecati dolorem dicta voluptatibus enim.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Occaecati dolorem dicta voluptatibus enim.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Occaecati dolorem dicta voluptatibus enim.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem ipsam error iste vitae cupiditate.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem ipsam error iste vitae cupiditate.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem ipsam error iste vitae cupiditate.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem ipsam error iste vitae cupiditate.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem ipsam error iste vitae cupiditate.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem ipsam error iste vitae cupiditate.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Dolorum et error aut sit omnis ab pariatur dolores beatae.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Dolorum et error aut sit omnis ab pariatur dolores beatae.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Dolorum et error aut sit omnis ab pariatur dolores beatae.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Dolorum et error aut sit omnis ab pariatur dolores beatae.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Dolorum et error aut sit omnis ab pariatur dolores beatae.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Dolorum et error aut sit omnis ab pariatur dolores beatae.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Architecto quis enim repudiandae aut tenetur praesentium.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Architecto quis enim repudiandae aut tenetur praesentium.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Architecto quis enim repudiandae aut tenetur praesentium.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Architecto quis enim repudiandae aut tenetur praesentium.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Architecto quis enim repudiandae aut tenetur praesentium.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Architecto quis enim repudiandae aut tenetur praesentium.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Officiis ea recusandae laborum velit ut et tempora.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Officiis ea recusandae laborum velit ut et tempora.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Officiis ea recusandae laborum velit ut et tempora.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Officiis ea recusandae laborum velit ut et tempora.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Officiis ea recusandae laborum velit ut et tempora.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Officiis ea recusandae laborum velit ut et tempora.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consectetur doloribus qui veritatis voluptas.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consectetur doloribus qui veritatis voluptas.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consectetur doloribus qui veritatis voluptas.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consectetur doloribus qui veritatis voluptas.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consectetur doloribus qui veritatis voluptas.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Consectetur doloribus qui veritatis voluptas.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (13.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Deleniti iste est in illum incidunt reprehenderit possimus ut fugit.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Deleniti iste est in illum incidunt reprehenderit possimus ut fugit.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Deleniti iste est in illum incidunt reprehenderit possimus ut fugit.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Deleniti iste est in illum incidunt reprehenderit possimus ut fugit.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Deleniti iste est in illum incidunt reprehenderit possimus ut fugit.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Deleniti iste est in illum incidunt reprehenderit possimus ut fugit.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Temporibus atque sint explicabo placeat et rerum pariatur culpa.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Temporibus atque sint explicabo placeat et rerum pariatur culpa.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Temporibus atque sint explicabo placeat et rerum pariatur culpa.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Temporibus atque sint explicabo placeat et rerum pariatur culpa.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Temporibus atque sint explicabo placeat et rerum pariatur culpa.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Temporibus atque sint explicabo placeat et rerum pariatur culpa.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo ea aut quod asperiores optio.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo ea aut quod asperiores optio.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo ea aut quod asperiores optio.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo ea aut quod asperiores optio.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo ea aut quod asperiores optio.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo ea aut quod asperiores optio.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam excepturi facere odit tempore dignissimos laudantium error magni.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam excepturi facere odit tempore dignissimos laudantium error magni.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam excepturi facere odit tempore dignissimos laudantium error magni.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam excepturi facere odit tempore dignissimos laudantium error magni.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam excepturi facere odit tempore dignissimos laudantium error magni.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aliquam excepturi facere odit tempore dignissimos laudantium error magni.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Laboriosam ratione eius qui id sunt.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (12.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Laboriosam ratione eius qui id sunt.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Laboriosam ratione eius qui id sunt.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Laboriosam ratione eius qui id sunt.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Laboriosam ratione eius qui id sunt.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Laboriosam ratione eius qui id sunt.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem dolores quisquam et eos dolorum est temporibus.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem dolores quisquam et eos dolorum est temporibus.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem dolores quisquam et eos dolorum est temporibus.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem dolores quisquam et eos dolorum est temporibus.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem dolores quisquam et eos dolorum est temporibus.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Voluptatem dolores quisquam et eos dolorum est temporibus.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus in quod tempora accusantium ipsa consequatur aut.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus in quod tempora accusantium ipsa consequatur aut.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus in quod tempora accusantium ipsa consequatur aut.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus in quod tempora accusantium ipsa consequatur aut.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus in quod tempora accusantium ipsa consequatur aut.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus in quod tempora accusantium ipsa consequatur aut.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Autem quia est ullam maxime deleniti at necessitatibus ipsam voluptatem.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Autem quia est ullam maxime deleniti at necessitatibus ipsam voluptatem.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Autem quia est ullam maxime deleniti at necessitatibus ipsam voluptatem.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Autem quia est ullam maxime deleniti at necessitatibus ipsam voluptatem.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Autem quia est ullam maxime deleniti at necessitatibus ipsam voluptatem.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Autem quia est ullam maxime deleniti at necessitatibus ipsam voluptatem.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Nihil rerum dolore saepe necessitatibus recusandae molestiae laborum distinctio.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Nihil rerum dolore saepe necessitatibus recusandae molestiae laborum distinctio.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Nihil rerum dolore saepe necessitatibus recusandae molestiae laborum distinctio.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Nihil rerum dolore saepe necessitatibus recusandae molestiae laborum distinctio.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Nihil rerum dolore saepe necessitatibus recusandae molestiae laborum distinctio.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Nihil rerum dolore saepe necessitatibus recusandae molestiae laborum distinctio.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Fugiat reprehenderit et aut possimus itaque facere.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Fugiat reprehenderit et aut possimus itaque facere.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Fugiat reprehenderit et aut possimus itaque facere.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Fugiat reprehenderit et aut possimus itaque facere.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Fugiat reprehenderit et aut possimus itaque facere.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Fugiat reprehenderit et aut possimus itaque facere.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Vel qui necessitatibus vitae sunt omnis praesentium ut.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Vel qui necessitatibus vitae sunt omnis praesentium ut.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Vel qui necessitatibus vitae sunt omnis praesentium ut.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Vel qui necessitatibus vitae sunt omnis praesentium ut.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Vel qui necessitatibus vitae sunt omnis praesentium ut.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Vel qui necessitatibus vitae sunt omnis praesentium ut.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus debitis vitae deserunt voluptas alias ut.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus debitis vitae deserunt voluptas alias ut.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus debitis vitae deserunt voluptas alias ut.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus debitis vitae deserunt voluptas alias ut.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus debitis vitae deserunt voluptas alias ut.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Minus debitis vitae deserunt voluptas alias ut.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Maiores cum repellat possimus et accusamus officiis voluptas fugit.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Maiores cum repellat possimus et accusamus officiis voluptas fugit.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Maiores cum repellat possimus et accusamus officiis voluptas fugit.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Maiores cum repellat possimus et accusamus officiis voluptas fugit.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Maiores cum repellat possimus et accusamus officiis voluptas fugit.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Maiores cum repellat possimus et accusamus officiis voluptas fugit.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem id vitae quaerat neque officia aperiam.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem id vitae quaerat neque officia aperiam.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem id vitae quaerat neque officia aperiam.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem id vitae quaerat neque officia aperiam.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem id vitae quaerat neque officia aperiam.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Exercitationem id vitae quaerat neque officia aperiam.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum eos molestias id qui sunt totam.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum eos molestias id qui sunt totam.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum eos molestias id qui sunt totam.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum eos molestias id qui sunt totam.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum eos molestias id qui sunt totam.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum eos molestias id qui sunt totam.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aspernatur eum maiores qui odit dolor cum ducimus ut necessitatibus.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aspernatur eum maiores qui odit dolor cum ducimus ut necessitatibus.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aspernatur eum maiores qui odit dolor cum ducimus ut necessitatibus.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aspernatur eum maiores qui odit dolor cum ducimus ut necessitatibus.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aspernatur eum maiores qui odit dolor cum ducimus ut necessitatibus.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Aspernatur eum maiores qui odit dolor cum ducimus ut necessitatibus.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Commodi qui velit et repudiandae dolores suscipit sapiente dolor.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Commodi qui velit et repudiandae dolores suscipit sapiente dolor.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Commodi qui velit et repudiandae dolores suscipit sapiente dolor.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Commodi qui velit et repudiandae dolores suscipit sapiente dolor.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Commodi qui velit et repudiandae dolores suscipit sapiente dolor.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Commodi qui velit et repudiandae dolores suscipit sapiente dolor.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum voluptatem facilis voluptatibus ut qui enim.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (21.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum voluptatem facilis voluptatibus ut qui enim.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum voluptatem facilis voluptatibus ut qui enim.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum voluptatem facilis voluptatibus ut qui enim.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum voluptatem facilis voluptatibus ut qui enim.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Rerum voluptatem facilis voluptatibus ut qui enim.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo nihil sequi minus ipsam tenetur enim itaque.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo nihil sequi minus ipsam tenetur enim itaque.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo nihil sequi minus ipsam tenetur enim itaque.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo nihil sequi minus ipsam tenetur enim itaque.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo nihil sequi minus ipsam tenetur enim itaque.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Explicabo nihil sequi minus ipsam tenetur enim itaque.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quia dolores sit sed illum quae maxime omnis velit eius.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quia dolores sit sed illum quae maxime omnis velit eius.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quia dolores sit sed illum quae maxime omnis velit eius.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quia dolores sit sed illum quae maxime omnis velit eius.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quia dolores sit sed illum quae maxime omnis velit eius.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Quia dolores sit sed illum quae maxime omnis velit eius.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Odit fugit aliquam deserunt sit et.', 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Odit fugit aliquam deserunt sit et.', 2, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Odit fugit aliquam deserunt sit et.', 3, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Odit fugit aliquam deserunt sit et.', 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Odit fugit aliquam deserunt sit et.', 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `user_id`, `created_at`, `updated_at`) VALUES ('Odit fugit aliquam deserunt sit et.', 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  `users`.* FROM `users`  ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users`
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (3, 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (4, 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (13.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (5, 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (6, 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (7, 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (8, 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (9, 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (10, 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (11, 1, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (1, 4, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (1, 5, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (1, 6, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (1, 7, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (1, 8, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (1, 9, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (1, 10, '2015-11-19 19:29:55', '2015-11-19 19:29:55')[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `relationships` (`followed_id`, `follower_id`, `created_at`, `updated_at`) VALUES (1, 11, '2015-11-19 19:29:55', '2015-11-19 19:29:55')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `groups`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups_users`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `microposts`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `relationships`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateEvents (20151120003807)
+  [1m[35m (816.4ms)[0m  CREATE TABLE `events` (`id` int(11) auto_increment PRIMARY KEY, `name` varchar(255), `startdate` datetime, `enddate` datetime, `location` varchar(255), `description` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151120003807')
+  [1m[36m (18.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (56.4ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events'
+[0m
+  [1m[35m (0.3ms)[0m  SHOW CREATE TABLE `events`
+  [1m[36m (0.6ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+[0m
+  [1m[35m (0.4ms)[0m  SHOW CREATE TABLE `groups`
+  [1m[36m (0.8ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+[0m
+  [1m[35m (0.3ms)[0m  SHOW CREATE TABLE `groups_users`
+  [1m[36m (0.4ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `microposts`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `relationships`
+  [1m[36m (0.4ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `events`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups_users`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `microposts`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `relationships`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `events`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events_users'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `events_users`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups_users`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `microposts`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `relationships`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `events`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `events_users`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups_users`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `microposts`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `relationships`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.4ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `events`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups_users`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `microposts`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `relationships`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36mActiveRecord::SchemaMigration Load (58.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateGroupMicroposts (20151117195448)
+  [1m[35m (310.6ms)[0m  CREATE TABLE `group_microposts` (`id` int(11) auto_increment PRIMARY KEY, `content` varchar(255), `group_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151117195448')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateGroupEvents (20151130005842)
+  [1m[35m (425.5ms)[0m  CREATE TABLE `group_events` (`id` int(11) auto_increment PRIMARY KEY, `name` varchar(255), `description` varchar(255), `group_id` int(11), `date` date, `start` time, `end` time, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151130005842')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `events`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'group_events'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `group_events`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'group_microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `group_microposts`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups_users`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `microposts`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `relationships`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36mActiveRecord::SchemaMigration Load (36.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreatePrivateMessages (20151130172853)
+  [1m[35m (237.5ms)[0m  CREATE TABLE `private_messages` (`id` int(11) auto_increment PRIMARY KEY, `sender_id` int(11), `receiver_id` int(11), `body` varchar(255), `unread` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (15.6ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (30.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151130172853')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to Users (20151204153623)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151204153623')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (31.9ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events'
+
+  [1m[36m (0.3ms)[0m  [1mSHOW CREATE TABLE `events`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'group_events'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `group_events`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'group_microposts'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `group_microposts`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+
+  [1m[36m (0.1ms)[0m  [1mSHOW CREATE TABLE `groups`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `groups_users`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `microposts`[0m
+  [1m[35m (0.4ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'private_messages'
+
+  [1m[36m (0.2ms)[0m  [1mSHOW CREATE TABLE `private_messages`[0m
+  [1m[35m (0.3ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+
+  [1m[36m (0.3ms)[0m  [1mSHOW CREATE TABLE `relationships`[0m
+  [1m[35m (0.2ms)[0m  SELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+
+  [1m[36m (0.1ms)[0m  [1mSHOW CREATE TABLE `users`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+Migrating to Users (20151204153623)
+  [1m[36mSQL (61.8ms)[0m  [1mDELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20151204153623'[0m
+  [1m[35mActiveRecord::SchemaMigration Load (7.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'events'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `events`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'group_events'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `group_events`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'group_microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `group_microposts`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'groups_users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `groups_users`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'microposts'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `microposts`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'private_messages'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `private_messages`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'relationships'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `relationships`
+  [1m[36m (0.1ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'campusApp_development'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`

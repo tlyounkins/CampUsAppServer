@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/new
   # GET /groups/new.json
-  # TODO
+  # TODO: add @group = Group.new?
   def new
   end
 
@@ -56,7 +56,7 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { }#redirect_to users_url, notice: 'Group was successfully destroyed.' }
+      format.html {}
       format.json { head :no_content }
     end
   end

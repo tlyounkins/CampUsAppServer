@@ -1,18 +1,16 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+
   def setup
     @user = users(:tyler)
     @other_user = users(:archer)
   end
 
-
   test "should get new" do
     get :new
     assert_response :success
   end
-
-
 
   test "should create user" do
     assert_difference('User.count') do
@@ -34,6 +32,4 @@ class UsersControllerTest < ActionController::TestCase
                                       bio: @user.bio, major: @user.major, hometown: @user.hometown, age: @user.age,
                                       gender: @user.gender }
   end
-
-
 end

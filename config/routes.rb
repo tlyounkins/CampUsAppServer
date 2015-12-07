@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   post   'group_event/:group_id' => 'group_events#create'
   post   'users/new' => 'users#create'
   post   'login'   => 'sessions#create'
-  post   'private_messages/:id' => 'private_messages#create'
+  post   'private_messages/:sender_id' => 'private_messages#create'
   post   'microposts/:id' => 'microposts#create'
   post   'group_microposts/:id' => 'group_microposts#create'
   delete 'logout'  => 'sessions#destroy'

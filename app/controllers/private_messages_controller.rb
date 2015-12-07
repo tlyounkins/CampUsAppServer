@@ -25,7 +25,7 @@ class PrivateMessagesController < ApplicationController
   # POST /private_messages/1.json
   def create
     @receiver_id = User.find(params[:recipient]).id
-    @private_message = User.find(params[:id]).private_messages.build(private_message_params)
+    @private_message = User.find(params[:sender_id]).private_messages.build(private_message_params)
 
     if @private_messages.save
       flash[:success] = "Private_Message created!"

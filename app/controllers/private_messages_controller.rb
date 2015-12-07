@@ -22,25 +22,20 @@ class PrivateMessagesController < ApplicationController
   # POST /private_messages
   # POST /private_messages/1.json
   def create
-    @reciever_id = User.find(params[:recipient]).id
+    @receiver_id = User.find(params[:recipient]).id
     @private_message = User.find(params[:id]).private_messages.build(private_message_params)
 
-    #respond_to do |format|
     if @private_messages.save
       flash[:success] = "Private_Message created!"
-      #redirect_to root_url
       respond_to do |format|
         format.html { redirect_to @private_messages, notice: 'Private Messages was successfully created.' }
         format.json { render :json=>{:success => true}}
       end
     else
-      @feed_items = []
-      #render 'static_pages/home'
       respond_to do |format|
         format.html { render :new }
         format.json { render :json=>{:success => false}}
       end
-      #end
     end
   end
 

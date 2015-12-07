@@ -22,6 +22,7 @@ class PrivateMessagesController < ApplicationController
   # POST /private_messages
   # POST /private_messages/1.json
   def create
+    @reciever_id = User.find(params[:recipient]).id
     @private_message = User.find(params[:id]).private_messages.build(private_message_params)
 
     #respond_to do |format|
@@ -53,5 +54,10 @@ class PrivateMessagesController < ApplicationController
     #format.html { redirect_to microposts_url, notice: 'Private Messages were successfully destroyed.' }
     #format.json { head :no_content }
     #end
+  end
+
+  private
+  def private_message_params
+    params.require(:private_message).permit(:id, :sender_id, :reciever_id, :body, :unread)
   end
 end

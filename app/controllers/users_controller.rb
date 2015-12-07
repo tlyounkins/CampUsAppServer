@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   # GET /users/findId/:username.json
   def findId
-    user = User.where('username' == :username).first
+    user = User.find_by(username: params[:username])
     respond_to do |format|
       format.json {render :json => {:id => user.id}}
     end

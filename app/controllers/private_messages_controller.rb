@@ -9,9 +9,9 @@ class PrivateMessagesController < ApplicationController
   # GET /private_messages/1
   # GET /private_messages/1.json
   def show
-    #respond_to do |format|
-      #format.json{render :json=> {:content => User.find(params[:id]).private_messages.last.content}}
-    #end
+    respond_to do |format|
+      format.json{render :json=> User.find(params[:id]).private_messages}
+    end
   end
 
   # GET /private_messages/new

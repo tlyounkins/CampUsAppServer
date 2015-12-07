@@ -1,4 +1,6 @@
 class PrivateMessagesController < ApplicationController
+  before_action :correct_user,   only: :destroy
+  skip_before_filter :verify_authenticity_token
 
   # GET /private_messages
   # GET /private_messages.json

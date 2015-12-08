@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get    'events/getAll' => 'events#getAll'
   get    'users/findId/:username' => 'users#findId'
   get    'group_event/getGroup/:group_id' => 'group_events#getGroup'
+  get    'private_messages/:id/senders' => 'private_messages#get_senders'
+  get    'private_messages/:id/:username' => 'private_messages#get_messages'
   post   'group_event/:group_id' => 'group_events#create'
   post   'users/new' => 'users#create'
   post   'login'   => 'sessions#create'

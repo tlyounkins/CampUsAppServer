@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get    'groups/getAll' => 'groups#getAll'
   get    'group_event/getGroup/:group_id' => 'group_events#getGroup'
 
+  get    'private_messages/:id/senders' => 'private_messages#get_senders'
+  get    'private_messages/:id/username' => 'private_messages#get_messages'
+
   get    'users/getAll' => 'users#getAll'
 
   #TODO: remove one of these routes?

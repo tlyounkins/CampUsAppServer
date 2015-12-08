@@ -1,6 +1,12 @@
 class EventsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
+
+  # GET /group_events
+  def index
+    @events = Event.all
+  end
+
   # GET /events/1
   # GET /events/1.json
   def show
@@ -8,13 +14,14 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html {}
       format.json {render :json=>{ :eventName => @event.eventname, :StartDate => @event.startdate,
-                                  :eventEndDate => @event.enddate, :location => @event.location,
-                                  :description => @event.description }}
+                                   :eventEndDate => @event.enddate, :location => @event.location,
+                                   :description => @event.description }}
     end
   end
 
   # GET /events/new
   def new
+
   end
 
   # GET /events/getAll.json
@@ -63,13 +70,14 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     respond_to do |format|
-      format.html { }#redirect_to users_url, notice: 'Event was successfully destroyed.' }
+      format.html {}
       format.json { head :no_content }
     end
   end
 
   private
-  def event_params
-    params.require(:event).permit(:eventname, :startdate, :enddate, :location, :description)
-  end
+
+   def event_params
+     params.require(:event).permit(:eventname, :startdate, :enddate, :location, :description)
+   end
 end

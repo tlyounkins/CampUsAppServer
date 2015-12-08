@@ -1,6 +1,12 @@
 class GroupsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
+  # GET /groups/new
+  # GET /groups/new.json
+  def new
+    @group = Group.new
+  end
+
   # GET /groups/1
   # GET /groups/1.json
   def show
@@ -9,12 +15,6 @@ class GroupsController < ApplicationController
       format.html {}
       format.json {render :json=>{:groupName => @group.groupname, :description => @group.description}}
     end
-  end
-
-  # GET /groups/new
-  # GET /groups/new.json
-  # TODO: add @group = Group.new?
-  def new
   end
 
   # GET /groups/getAll.json

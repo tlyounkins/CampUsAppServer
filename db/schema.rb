@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208183729) do
+ActiveRecord::Schema.define(version: 20151208221321) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 20151208183729) do
 
   create_table "group_events", force: :cascade do |t|
     t.string   "name",        limit: 255
-    t.string   "description", limit: 255
     t.integer  "group_id",    limit: 4
-    t.date     "date"
-    t.time     "start"
-    t.time     "end"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "startdate"
+    t.datetime "enddate"
+    t.string   "location",    limit: 255
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "group_microposts", force: :cascade do |t|

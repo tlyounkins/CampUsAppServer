@@ -15,7 +15,5 @@ class GroupsControllerTest < ActionController::TestCase
     assert_difference('Group.count') do
       post :create, group: { groupname: 'testgroupname', description: 'testgroupdescription'}
     end
-
   end
-
 end

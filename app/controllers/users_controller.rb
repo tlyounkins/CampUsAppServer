@@ -1,10 +1,7 @@
 class UsersController < ApplicationController
-  #TODO: verify before_action and skip_before_filter code
-  #before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
-  #                                      :following, :followers]
-  #before_action :correct_user,   only: [:edit, :update]
-  #before_action :set_user, only: [:show, :edit, :update, :destroy]
-  #before_action :admin_user,     only: :destroy
+  before_action :correct_user,   only: [:edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user,     only: :destroy
   skip_before_filter :verify_authenticity_token
 
 
@@ -61,7 +58,7 @@ class UsersController < ApplicationController
       @user.send_activation_email
       flash[:info] = "Please check your email to activate your account."
       #@user.errors.full_messages
-      log_in @user # delete this line so users do not login upon signup
+      log_in @user #TODO: delete this line so users do not login upon signup
       respond_to do |format|
         format.html {redirect_to @user}
         format.json {render :json =>{ :success => true}}
@@ -135,14 +132,6 @@ class UsersController < ApplicationController
 
     #Before filters
 
-      # Confirms a logged-in user.
-     #def logged_in_user
-      #unless logged_in?
-         # store_location
-          #flash[:danger] = "Please log in."
-          #redirect_to login_url
-      #end
-     #end
     # Confirms the correct user.
     def correct_user
      @user = User.find(params[:id])
@@ -156,14 +145,14 @@ class UsersController < ApplicationController
 
   private
 
-  # Converts email to all lower-case.
-  def downcase_email
-    User.email = email.downcase
-  end
+    # Converts email to all lower-case.
+    def downcase_email
+      User.email = email.downcase
+    end
 
-  # Creates and assigns the activation token and digest.
-  def create_activation_digest
-    User.activation_token  = User.new_token
-    User.activation_digest = User.digest(activation_token)
-  end
+    # Creates and assigns the activation token and digest.
+    def create_activation_digest
+      User.activation_token  = User.new_token
+      User.activation_digest = User.digest(activation_token)
+    end
 end

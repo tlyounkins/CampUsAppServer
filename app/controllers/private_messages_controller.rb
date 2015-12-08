@@ -11,9 +11,9 @@ class PrivateMessagesController < ApplicationController
   # GET /private_messages/1
   # GET /private_messages/1.json
   def show
-    #respond_to do |format|
-     # format.json{render :json=> User.find(params[:id]).private_messages}
-   # end
+    respond_to do |format|
+      format.json{render :json=> User.find(params[:id]).private_messages}
+    end
   end
 
   # GET /private_messages/new
@@ -24,12 +24,13 @@ class PrivateMessagesController < ApplicationController
   # POST /private_messages
   # POST /private_messages/1.json
   def create
-    #@receiver_id = User.find(params[:recipient]).id
+    @receiver_id = User.where('username' == params[:recipient]).last.id
 
 
-    @private_message = User.find(params[:sender_id]).private_messages.build(private_message_params)
+    @private_message = User.find(params[:user_id]).private_messages.build(:receiver_id => @receiver_id, :user_id => params[:user_id],
+                                                                          :body => params[:body], :unread => 1)
 
-    if @private_messages.save
+    if @private_message.save
       flash[:success] = "Private_Message created!"
       respond_to do |format|
         format.html { redirect_to @private_messages, notice: 'Private Messages was successfully created.' }
@@ -57,6 +58,6 @@ class PrivateMessagesController < ApplicationController
 
   private
   def private_message_params
-    params.require(:private_message).permit(:id, :sender_id, :receiver_id, :body, :unread)
+    params.permit(:id, :user_id, :receiver_id, :body, :unread)
   end
 end

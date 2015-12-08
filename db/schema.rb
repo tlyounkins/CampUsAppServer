@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130172853) do
+ActiveRecord::Schema.define(version: 20151208183729) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20151130172853) do
   add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at", using: :btree
 
   create_table "private_messages", force: :cascade do |t|
-    t.integer  "sender_id",   limit: 4
+    t.integer  "user_id",     limit: 4
     t.integer  "receiver_id", limit: 4
     t.string   "body",        limit: 255
     t.integer  "unread",      limit: 4

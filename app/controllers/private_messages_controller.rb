@@ -12,7 +12,7 @@ class PrivateMessagesController < ApplicationController
   # GET /private_messages/1.json
   def show
     respond_to do |format|
-      format.json{render :json=> User.find(params[:id]).private_messages}
+      format.json{render :json=> PrivateMessage.where(receiver_id: params[:id])}
     end
   end
 
@@ -21,13 +21,38 @@ class PrivateMessagesController < ApplicationController
     @private_messages = PrivateMessage.new
   end
 
+  # GET /private_messages/1/senders
+  def get_senders
+    @senders_id = PrivateMessage.where(receiver_id: params[:id]).pluck(:user_id)
+    senders = Array.new
+
+    @senders_id.length.times do |i|
+      username = User.find(@senders_id[i]).username
+      if !senders.include? username
+        senders[i] = username
+      end
+    end
+
+    respond_to do |format|
+      format.json { render :json=> senders}
+    end
+  end
+
+  # GET /private_messages/1/:username
+  def get_messages
+    sender = User.find_by(username: params[:username])
+    messages = PrivateMessage.where(receiver_id: params[:id]).where(user_id: sender.id).pluck(:body)
+    respond_to do |format|
+      format.json {render :json => messages}
+    end
+  end
+
   # POST /private_messages
   # POST /private_messages/1.json
   def create
-    @receiver_id = User.where('username' == params[:recipient]).last.id
+    receiver = User.find_by(username: params[:recipient])
 
-
-    @private_message = User.find(params[:user_id]).private_messages.build(:receiver_id => @receiver_id, :user_id => params[:user_id],
+    @private_message = User.find(params[:user_id]).private_messages.build(:receiver_id => receiver.id, :user_id => params[:user_id],
                                                                           :body => params[:body], :unread => 1)
 
     if @private_message.save

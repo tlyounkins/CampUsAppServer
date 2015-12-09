@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20151208221321) do
     t.integer  "unread",      limit: 4
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.datetime "timestamp",               null: false
   end
 
   create_table "relationships", force: :cascade do |t|

@@ -15,6 +15,7 @@ tyler:
   admin: true
   activated: true
   activated_at: <%= Time.zone.now.to_datetime %>
+  school: YCP
 
 archer:
   username: SterlingArcher
@@ -30,6 +31,7 @@ archer:
   gender: male
   activated: true
   activated_at: <%= Time.zone.now.to_datetime %>
+  school: MySchool
 
 lana:
   username: LanaKane
@@ -45,6 +47,7 @@ lana:
   gender: female
   activated: true
   activated_at: <%= Time.zone.now.to_datetime %>
+  school: MySchool
 
 mallory:
   username: Mallory Archer
@@ -60,6 +63,7 @@ mallory:
   gender: female
   activated: true
   activated_at: <%= Time.zone.now.to_datetime %>
+  school: MySchool
 
 <% 30.times do |n| %>
 user_<%= n %>:
@@ -76,4 +80,5 @@ user_<%= n %>:
   gender: male
   activated: true
   activated_at: <%= Time.zone.now.to_datetime %>
+  school: MySchool
 <% end %>

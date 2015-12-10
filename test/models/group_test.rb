@@ -3,7 +3,7 @@ require 'test_helper'
 class GroupTest < ActiveSupport::TestCase
 
   def setup
-    @group = Group.new(groupname: "Example Group", description: "Example Description")
+    @group = Group.new(groupname: "Example Group", description: "Example Description", school: "Example School")
   end
 
   test "should be valid" do

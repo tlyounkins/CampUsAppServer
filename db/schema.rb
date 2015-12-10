@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208221321) do
+ActiveRecord::Schema.define(version: 20151210184715) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20151208221321) do
     t.string   "description", limit: 255
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "school",      limit: 255
   end
 
   create_table "groups_users", id: false, force: :cascade do |t|
@@ -70,7 +71,6 @@ ActiveRecord::Schema.define(version: 20151208221321) do
     t.integer  "unread",      limit: 4
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.datetime "timestamp",               null: false
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20151208221321) do
     t.datetime "activated_at"
     t.string   "reset_digest",      limit: 255
     t.datetime "reset_sent_at"
+    t.string   "school",            limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

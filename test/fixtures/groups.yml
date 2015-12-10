@@ -3,7 +3,14 @@
 one:
   groupname: MyString
   description: MyString
+  school: York
 
 two:
   groupname: MyString
   description: MyString
+  school: Towson
+
+three:
+  groupname: MyString
+  description: MyString
+  school: McDaniel

@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       format.json {render :json=>{:username => @user.username, :email => @user.email, :password => @user.password,
                                             :firstname => @user.firstname, :lastname  => @user.lastname,
                                             :bio => @user.bio, :major => @user.major, :hometown => @user.hometown,
-                                            :age => @user.age, :gender => @user.gender}}
+                                            :age => @user.age, :gender => @user.gender, :school => @user.school}}
     end
   end
 
@@ -55,9 +55,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.send_activation_email
+     #@user.send_activation_email
       flash[:info] = "Please check your email to activate your account."
-      #@user.errors.full_messages
+      @user.errors.full_messages
       log_in @user #TODO: delete this line so users do not login upon signup
       respond_to do |format|
         format.html {redirect_to @user}
@@ -127,7 +127,7 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:id, :username, :email, :password, :password_confirmation, :firstname, :lastname,
-                                  :bio, :major, :hometown, :gender)
+                                  :bio, :major, :hometown, :gender, :school)
     end
 
     #Before filters

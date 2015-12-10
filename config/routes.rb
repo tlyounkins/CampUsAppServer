@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get    'group_microposts/:id/posts' => 'group_microposts#posts'
   get    'groups/getAll' => 'groups#getAll'
   get    'group_event/getGroup/:group_id' => 'group_events#getGroup'
+  get    'groups/findId/:groupname' => 'groups#findId'
 
   get    'private_messages/:id/senders' => 'private_messages#get_senders'
   get    'private_messages/:id/username' => 'private_messages#get_messages'
@@ -27,7 +28,7 @@ Rails.application.routes.draw do
 
   #TODO: remove one of these routes?
   get    'users/findId/:username' => 'users#findId'
-  get    'users/:username/findId' => 'users#findId'
+  #get    'users/:username/findId' => 'users#findId'
 
   get    'microposts/:id/posts' => 'microposts#posts'
 

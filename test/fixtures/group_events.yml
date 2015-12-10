@@ -1,14 +1,14 @@
 
 one:
   name: groupeventone
-  start: 2015-11-19 19:38:07
-  end: 2015-11-19 19:38:07
+  startdate: 2015-11-19 19:38:07
+  enddate: 2015-11-19 19:38:07
   location: MyString
   description: MyText
 
 two:
   name: groupeventtwo
-  start: 2015-11-19 19:38:07
-  end: 2015-11-19 19:38:07
+  startdate: 2015-11-19 19:38:07
+  enddate: 2015-11-19 19:38:07
   location: MyString
   description: MyText

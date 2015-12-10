@@ -17,7 +17,7 @@ class UsersControllerTest < ActionController::TestCase
       post :create, user: { username: 'testusername', email: 'testemail@email.com', password: 'testpassword',
                             firstname: @user.firstname, lastname: @user.lastname, birthday: @user.birthday,
                             bio: @user.bio, major: @user.major, hometown: @user.hometown, age: @user.age,
-                            gender: @user.gender }
+                            gender: @user.gender, school: @user.school }
     end
   end
 
@@ -30,6 +30,6 @@ class UsersControllerTest < ActionController::TestCase
     patch :update, id: @user, user: { username: @user.username,email: @user.email, password: @user.password,
                                       firstname: @user.firstname, lastname: @user.lastname, birthday: @user.birthday,
                                       bio: @user.bio, major: @user.major, hometown: @user.hometown, age: @user.age,
-                                      gender: @user.gender }
+                                      gender: @user.gender, school: @user.school }
   end
 end

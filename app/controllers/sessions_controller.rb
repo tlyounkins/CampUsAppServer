@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
         respond_to do |format|
           format.html {flash.now[:danger] = 'Account not activated'
           render 'new'}
-          format.json {render :json => {:success => true, :id =>user.id, :username => user.username}}
+          format.json {render :json => {:success => true, :id => user.id, :username => user.username, :school => user.school}}
         end
       #end
     else

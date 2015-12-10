@@ -13,7 +13,6 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :age
       t.string :gender
 
-
       t.timestamps null: false
     end
   end

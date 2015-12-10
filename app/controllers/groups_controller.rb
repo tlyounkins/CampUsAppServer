@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     respond_to do |format|
       format.html {}
-      format.json {render :json=>{:groupName => @group.groupname, :description => @group.description}}
+      format.json {render :json=>{:groupName => @group.groupname, :description => @group.description, :school => @group.school}}
     end
   end
 
@@ -21,6 +21,15 @@ class GroupsController < ApplicationController
   def getAll
     respond_to do |format|
       format.json {render :json=>Group.all}
+    end
+  end
+
+  # GET /groups/findId/:groupname.json
+  def findId
+    groupname = params[:groupname].gsub(/_/, ' ') # allow whitespaces in name
+    group = Group.find_by(groupname: groupname)
+    respond_to do |format|
+      format.json {render :json => {:id => group.id}}
     end
   end
 
@@ -40,7 +49,7 @@ class GroupsController < ApplicationController
       flash[:success] = "Group Created!"
       respond_to do |format|
         format.html {redirect_to @group}
-        format.json {render :json =>{ :success => true}}
+        format.json {render :json =>{ :success => true, :group_id => @group.id}}
       end
     else
       @group.errors.full_messages
@@ -73,7 +82,7 @@ class GroupsController < ApplicationController
 
   private
     def group_params
-      params.require(:group).permit(:groupname, :description)
+      params.require(:group).permit(:groupname, :description, :school)
     end
 
 end

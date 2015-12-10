@@ -53,7 +53,7 @@ class PrivateMessagesController < ApplicationController
     receiver = User.find_by(username: params[:recipient])
 
     @private_message = User.find(params[:user_id]).private_messages.build(:receiver_id => receiver.id, :user_id => params[:user_id],
-                                                                          :body => params[:body], :unread => 1)
+                                                                          :body => params[:body], :unread => 1, :timestamp => params[:timestamp])
 
     if @private_message.save
       flash[:success] = "Private_Message created!"
@@ -83,6 +83,6 @@ class PrivateMessagesController < ApplicationController
 
   private
   def private_message_params
-    params.permit(:id, :user_id, :receiver_id, :body, :unread)
+    params.permit(:id, :user_id, :receiver_id, :body, :unread, :timestamp)
   end
 end

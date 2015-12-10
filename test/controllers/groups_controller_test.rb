@@ -13,7 +13,7 @@ class GroupsControllerTest < ActionController::TestCase
 
   test "should create group" do
     assert_difference('Group.count') do
-      post :create, group: { groupname: 'testgroupname', description: 'testgroupdescription'}
+      post :create, group: { groupname: 'testgroupname', description: 'testgroupdescription', school: 'testgroupschool'}
     end
   end
 end

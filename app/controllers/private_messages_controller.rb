@@ -41,7 +41,7 @@ class PrivateMessagesController < ApplicationController
   # GET /private_messages/1/:username
   def get_messages
     sender = User.find_by(username: params[:username])
-    messages = PrivateMessage.where(receiver_id: params[:id]).where(user_id: sender.id).pluck(:body)
+    messages = PrivateMessage.where(user_id: [params[:id], sender.id]).where(receiver_id: [params[:id], sender.id]).sort_by &:created_at
     respond_to do |format|
       format.json {render :json => messages}
     end
@@ -53,7 +53,7 @@ class PrivateMessagesController < ApplicationController
     receiver = User.find_by(username: params[:recipient])
 
     @private_message = User.find(params[:user_id]).private_messages.build(:receiver_id => receiver.id, :user_id => params[:user_id],
-                                                                          :body => params[:body], :unread => 1, :timestamp => params[:timestamp])
+                                                                          :body => params[:body], :unread => 1)
 
     if @private_message.save
       flash[:success] = "Private_Message created!"
@@ -83,6 +83,6 @@ class PrivateMessagesController < ApplicationController
 
   private
   def private_message_params
-    params.permit(:id, :user_id, :receiver_id, :body, :unread, :timestamp)
+    params.permit(:id, :user_id, :receiver_id, :body, :unread)
   end
 end

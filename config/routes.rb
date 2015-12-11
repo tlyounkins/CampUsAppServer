@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   get    'groups/findId/:groupname' => 'groups#findId'
 
   get    'private_messages/:id/senders' => 'private_messages#get_senders'
-  get    'private_messages/:id/username' => 'private_messages#get_messages'
+  get    'private_messages/:id/:username' => 'private_messages#get_messages'
 
   get    'users/getAll' => 'users#getAll'
 

@@ -23,7 +23,7 @@ class PrivateMessagesController < ApplicationController
 
   # GET /private_messages/1/senders
   def get_senders
-    @senders_id = PrivateMessage.where(receiver_id: params[:id]).pluck(:user_id)
+    @senders_id = PrivateMessage.where(receiver_id: params[:id]).pluck(:user_id).where(user_id: params[:id]).pluck(:receiver_id)
     senders = Array.new
 
     @senders_id.length.times do |i|

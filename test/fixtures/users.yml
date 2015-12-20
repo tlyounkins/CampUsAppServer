@@ -31,7 +31,7 @@ archer:
   gender: male
   activated: true
   activated_at: <%= Time.zone.now.to_datetime %>
-  school: MySchool
+  school: Spyschool
 
 lana:
   username: LanaKane
